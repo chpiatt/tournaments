@@ -1,0 +1,5 @@
+query UserTokenBalance ($address: String) {
+  user(id: $address) {
+    tokenBalance
+  }
+}
