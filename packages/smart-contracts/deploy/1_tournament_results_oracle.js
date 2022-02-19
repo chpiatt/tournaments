@@ -2,13 +2,12 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deploy, log } = deployments;
   const { deployer } = await getNamedAccounts();
 
-  log(`1) Simple Token`)
-  // Deploy SimpleToken contract
-  const deployResult = await deploy("SimpleToken", {
+  log(`1) TournamentResultsOracle`)
+  // Deploy TournamentResultsOracle contract
+  const deployResult = await deploy("TournamentResultsOracle", {
     from: deployer,
-    contract: "SimpleToken",
+    contract: "TournamentResultsOracle",
     gas: 4000000,
-    args: ["Simple Token", "SMPL"],
     skipIfAlreadyDeployed: true
   });
 
@@ -19,4 +18,4 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   }
 };
 
-module.exports.tags = ["1", "SimpleToken"]
+module.exports.tags = ["1", "TournamentResultsOracle"]

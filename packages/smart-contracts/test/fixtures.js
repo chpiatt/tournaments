@@ -2,15 +2,18 @@ const { deployments } = require("hardhat");
 
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000"
 
-const tokenFixture = deployments.createFixture(async ({ethers}, options) => {
+const tournamentsFixture = deployments.createFixture(async ({ethers}) => {
     const accounts = await ethers.getSigners();
     const deployer = accounts[0]
     const alice = accounts[1]
     const bob = accounts[2]
-    const SimpleTokenFactory = await ethers.getContractFactory("SimpleToken");
-    const SimpleToken = await SimpleTokenFactory.deploy("Simple Token", "SMPL");
+    const TournamentResultsOracleFactory = await ethers.getContractFactory("TournamentResultsOracle");
+    const TournamentResultsOracle = await TournamentResultsOracleFactory.deploy();
+    const TournamentsFactory = await ethers.getContractFactory("Tournaments");
+    const Tournaments = await TournamentsFactory.deploy(TournamentResultsOracle.address);
     return {
-        token: SimpleToken,
+        tournaments: Tournaments,
+        resultsOracle: TournamentResultsOracle,
         deployer: deployer,
         alice: alice,
         bob: bob,
@@ -18,4 +21,4 @@ const tokenFixture = deployments.createFixture(async ({ethers}, options) => {
     };
 })
 
-module.exports.tokenFixture = tokenFixture;
+module.exports.tournamentsFixture = tournamentsFixture;
